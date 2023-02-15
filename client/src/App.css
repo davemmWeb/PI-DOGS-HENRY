@@ -1,0 +1,11 @@
+.App {
+  text-align: center;
+  
+}
+body{
+  background-image: url("./accets/fondo-inicio.jpg");
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
