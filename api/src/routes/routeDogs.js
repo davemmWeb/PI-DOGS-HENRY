@@ -43,11 +43,11 @@ router.get("/:idRace", async (req, res) => {
 
 // 📍 POST | /dogs
 router.post("/", async (req, res) => {
-  const { image, name, height, weight, ageOfLife } = req.body;
-  if (![image, name, height, weight, ageOfLife].every(Boolean)) {
+  const { image, name, height, weight, life_span } = req.body;
+  if (![image, name, height, weight, life_span].every(Boolean)) {
     res.status(400).send("Error entering data");
   } else {
-    const newDog = await createDog(image, name, height, weight, ageOfLife);
+    const newDog = await createDog(image, name, height, weight, life_span);
     res.status(200).json(newDog);
   }
 });

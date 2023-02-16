@@ -62,13 +62,13 @@ const getForId = async (idRace) => {
   }
 };
 
-const createDog = async (image, name, height, weight, ageOfLife) => {
+const createDog = async (image, name, height, weight, life_span) => {
   const newDog = Dog.create({
     image,
     name,
     height,
     weight,
-    ageOfLife,
+    life_span,
   });
   return newDog;
 };

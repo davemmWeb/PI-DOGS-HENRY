@@ -1,9 +1,19 @@
-import { ALL_DOGS, SEARCH_FOR_NAME, GET_DETAIL } from "./actions";
+import {
+  ALL_DOGS,
+  SEARCH_FOR_NAME,
+  GET_DETAIL,
+  GET_TEMP_API,
+  GET_TEMP_DB,
+  FILTER_TEMP,
+} from "./actions";
 
 const initialState = {
-  allDogs: [],
-  searchForName: [],
-  getDetail: [],
+  all_dogs: [],
+  search_for_name: [],
+  get_detail: [],
+  get_temp_db: [],
+  get_temp_api: [],
+  filter_temp: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -11,26 +21,61 @@ const rootReducer = (state = initialState, action) => {
     case ALL_DOGS:
       return {
         ...state,
-        allDogs: action.payload,
+        all_dogs: action.payload,
       };
 
     case SEARCH_FOR_NAME:
-      const dogs = state.allDogs;
+      const dogs = state.all_dogs;
       const dog = dogs.filter(
         (value) => value.name.toLowerCase() === action.payload.toLowerCase()
       );
       return {
         ...state,
-        searchForName: dog,
+        search_for_name: dog,
       };
+
     case GET_DETAIL:
-      const details = state.allDogs;
+      const details = state.all_dogs;
       const detail = details.filter((value) => value.id == action.payload);
       return {
         ...state,
-        getDetail: detail,
+        get_detail: detail,
       };
 
+    case GET_TEMP_DB:
+      const tempsDB = action.payload.map((value) => value.name);
+      return {
+        ...state,
+        get_temp_db: tempsDB,
+      };
+
+    case GET_TEMP_API:
+      const data = action.payload;
+      const arrTemps = [];
+      const onlyTemps = data.map((value) => value.temperament);
+      const temps = onlyTemps.join(",").split(",");
+      const mySet = new Set();
+      temps.forEach((e) => {
+        mySet.add(e.trim() ? e.trim() : "not found");
+      });
+      for (const item of mySet) {
+        arrTemps.push(item);
+      }
+      return {
+        ...state,
+        get_temp_api: arrTemps,
+      };
+
+    case FILTER_TEMP:
+      const races = state.all_dogs;
+      const temp = races.filter(
+        (value) =>
+          value.temperament && value.temperament.includes(action.payload)
+      );
+      return {
+        ...state,
+        filter_temp: temp,
+      };
     default:
       return {
         ...state,

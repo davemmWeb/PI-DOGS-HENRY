@@ -1,6 +1,6 @@
 .container{
-    width: 12rem;
-    height: 17em;
+    width: 14rem;
+    height: 15em;
     border: solid 1px black;
     border-radius: 5px;
     box-shadow: 2px 4px black;
@@ -10,8 +10,8 @@
     transition: transform 0.5s;
 }
 .container img{
-    width: 10em;
-    height: 10em;
+    width: 8em;
+    height: 8em;
 }
 .container p{
     font-size: 12px;

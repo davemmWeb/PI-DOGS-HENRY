@@ -12,27 +12,31 @@ const Detail = () => {
       dispatch(getDetail(id))
     }, [dispatch])
     
-    const detail = useSelector(state=>state.getDetail)    
+    const detail = useSelector(state=>state.get_detail)    
     
   return (
-    <div className={styles.container}>
-        <h1>Race: {detail[0].name}</h1>
-        <img src={detail[0].image.url} alt={detail[0].name} />
+    <>    
         {
             detail.map((value,index)=>{
-                return <div className={styles.details} key={index}>
-                    <p>Height imperial: {value.height.imperial}</p>
-                    <p>Height metric: {value.height.metric}</p>
-                    <p>Life Span: {value.life_span}</p>
-                    <p>Bred for: {value.bred_for}</p>
-                    <p>Breed group: {value.breed_group}</p>
-                    <p>Temperament: {value.temperament}</p>
-                    <p>Weight imperial: {value.weight.imperial}</p>
-                    <p>Weight metric: {value.weight.metric}</p>
+                return <div className={styles.container} key={index}>
+                    <div className={styles.imageTitle}>
+                        <h1>{value.name}</h1>
+                        <img src={value.image.url} alt={value.name} />
+                    </div>
+                    <div className={styles.details}>
+                        <p>🐶Height imperial : {value.height.imperial}</p>
+                        <p>🐶Height metric : {value.height.metric}</p>
+                        <p>🐶Life Span : {value.life_span}</p>
+                        <p>🐶Bred for : {value.bred_for}</p>
+                        <p>🐶Breed group : {value.breed_group}</p>
+                        <p>🐶Temperament : {value.temperament}</p>
+                        <p>🐶Weight imperial : {value.weight.imperial}</p>
+                        <p>🐶Weight metric : {value.weight.metric}</p>
+                    </div>
                 </div>
             })
-        }
-    </div>
+        }   
+    </>
   )
 }
 

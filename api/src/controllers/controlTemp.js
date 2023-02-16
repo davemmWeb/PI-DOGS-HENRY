@@ -14,14 +14,16 @@ const getTemp = async () => {
   temps.forEach((e) => {
     mySet.add(e.trim() ? e.trim() : "not found");
   });
-  for (const item of mySet) {
-    const tem = await Temperament.create({
-      name: item,
+  const arrSet = Array.from(mySet);
+  arrSet.forEach((e) => {
+    Temperament.create({
+      name: e,
     });
-    console.log(item);
-  }
+  });
 
-  return temps;
+  const temperaments = await Temperament.findAll();
+
+  return temperaments;
 };
 
 module.exports = { getTemp };
