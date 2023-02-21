@@ -5,6 +5,9 @@ import {
   GET_TEMP_API,
   GET_TEMP_DB,
   FILTER_TEMP,
+  FILTER_TEMP_DB,
+  ORDER_ASC_DES,
+  ORDER_MAX_MIN,
 } from "./actions";
 
 const initialState = {
@@ -14,6 +17,9 @@ const initialState = {
   get_temp_db: [],
   get_temp_api: [],
   filter_temp: [],
+  filter_temp_db: [],
+  order_asc_des: [],
+  order_max_min: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -76,6 +82,56 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         filter_temp: temp,
       };
+    case FILTER_TEMP_DB:
+      const racesDb = state.all_dogs;
+      const tempDb = racesDb.filter(
+        (value) =>
+          value.temperament && value.temperament.includes(action.payload)
+      );
+      return {
+        ...state,
+        filter_temp_db: tempDb,
+      };
+    case ORDER_ASC_DES:
+      const filter = state.filter_temp.length
+        ? state.filter_temp
+        : state.filter_temp_db.length
+        ? state.filter_temp_db
+        : state.all_dogs;
+      action.payload === "ASC"
+        ? filter.sort((a, b) => {
+            if (a.name < b.name) {
+              return -1;
+            }
+          })
+        : filter.sort((a, b) => {
+            if (a.name > b.name) {
+              return -1;
+            }
+          });
+      return {
+        ...state,
+        order_asc_des: filter,
+      };
+    case ORDER_MAX_MIN:
+      const filterMax = state.filter_temp.length
+        ? state.filter_temp
+        : state.filter_temp_db.length
+        ? state.filter_temp_db
+        : state.all_dogs;
+
+      action.payload === "min_max"
+        ? filterMax.sort((a, b) => {
+            return parseInt(a.weight.imperial) - parseInt(b.weight.imperial);
+          })
+        : filterMax.sort((a, b) => {
+            return parseInt(b.weight.imperial) - parseInt(a.weight.imperial);
+          });
+      return {
+        ...state,
+        order_max_min: filterMax,
+      };
+
     default:
       return {
         ...state,

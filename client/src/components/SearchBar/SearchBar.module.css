@@ -1,0 +1,7 @@
+.container{
+    width: 14%;
+}
+.container input{
+    width: 60%;
+    border-radius: 6px;
+}

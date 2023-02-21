@@ -1,5 +1,4 @@
 import React,{useEffect, useState} from 'react'
-import SearchBar from "../SearchBar/SearchBar"
 import Card from '../Card/Card'
 import { useSelector, useDispatch } from 'react-redux'
 import { getDogs } from '../../redux/actions'
@@ -8,40 +7,35 @@ import NavBar from '../NavBar/NavBar'
 import loading from '../../accets/reloading.gif'
 import Pagination from '../Pagination/Pagination'
 
+const ITEMS_PER_PAGE = 8;
 
 const Home = () => {
     const dispatch = useDispatch()
-
-    const [mostrar, setMostrar] = useState([])
-  
-    const [pagina, setPagina] = useState(1)
-    const [porPagina, setPorPagina] = useState(8)  
-    const maximo = Math.ceil(mostrar.length / porPagina)
-    
     useEffect(()=>{
         dispatch(getDogs())
     },[dispatch])
 
-    const allDogs = useSelector(state=>state.all_dogs)
-    const getForName = useSelector(state=>state.search_for_name)
+    const [currentPage, setCurrentPage] = useState(1);
+    const [dataToShow, setDataToShow] = useState([])
+    
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
 
-
+    const allDogs = useSelector(state=>state.all_dogs)    
     useEffect(()=>{
-        getForName.length === 0 ? 
-        setMostrar(allDogs):
-        setMostrar(getForName)
-    },[allDogs,getForName])
-     
+        setDataToShow(allDogs)
+    },[allDogs])       
     
   return (
     <div>
-        <SearchBar setMostrar={setMostrar}/>
-        <NavBar/>
-        <Pagination pagina={pagina} setPagina={setPagina} maximo={maximo} mostrar={mostrar}/>
+        <NavBar setDataToShow={setDataToShow} setCurrentPage={setCurrentPage}/>
+        <Pagination currentPage={currentPage} totalPages={Math.ceil(dataToShow.length / ITEMS_PER_PAGE)} onPageChange={handlePageChange}/>
         <div className={styles.containerCards}>
             {               
-                mostrar.length ? mostrar.slice((pagina - 1)*porPagina,
-                (pagina -1)* porPagina + porPagina).map((value,index)=>{
+                dataToShow.length ? dataToShow.slice(startIndex, endIndex).map((value,index)=>{
                     return <Card key={index} 
                         id= {value.id}
                         image = {value.image.url}

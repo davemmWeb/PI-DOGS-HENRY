@@ -1,0 +1,17 @@
+.error{
+    border: solid 2px red;    
+  }
+
+label{
+    display: inline-block;
+    margin-bottom: 5px;    
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}

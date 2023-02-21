@@ -5,6 +5,10 @@ export const GET_DETAIL = "GET_DETAIL";
 export const GET_TEMP_DB = "GET_TEMP_DB";
 export const GET_TEMP_API = "GET_TEMP_API";
 export const FILTER_TEMP = "FILTER_TEMP";
+export const FILTER_TEMP_DB = "FILTER_TEMP_DB";
+export const ORDER_ASC_DES = "ORDER_ASC_DES";
+export const ORDER_MAX_MIN = "ORDER_MAX_MIN";
+export const CREATE_NEW_RACE = "CREATE_NEW_RACE";
 
 export const getDogs = () => {
   return async function (dispatch) {
@@ -68,5 +72,35 @@ export const filterTemp = (temp) => {
   return {
     type: FILTER_TEMP,
     payload: temp,
+  };
+};
+
+export const filterTempDB = (temp) => {
+  return {
+    type: FILTER_TEMP_DB,
+    payload: temp,
+  };
+};
+
+export const orderAscDes = (order) => {
+  return {
+    type: ORDER_ASC_DES,
+    payload: order,
+  };
+};
+export const orderMaxMin = (order) => {
+  return {
+    type: ORDER_MAX_MIN,
+    payload: order,
+  };
+};
+export const createNewRace = (data) => {
+  return async function () {
+    try {
+      const res = await axios.post("http://localhost:3001/dogs", data);
+      alert("The race was satisfactorily created");
+    } catch (err) {
+      console.log(err);
+    }
   };
 };

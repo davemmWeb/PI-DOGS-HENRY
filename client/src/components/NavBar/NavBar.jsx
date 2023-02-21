@@ -1,9 +1,18 @@
 import React, {useEffect} from 'react'
-import { getTempApi, getTempDB, filterTemp } from '../../redux/actions'
+import { 
+     getTempApi,
+     getTempDB,
+     filterTemp,
+     orderAscDes,
+     orderMaxMin } from '../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
+import Form from "../Form/Form"
+import SearchBar from '../SearchBar/SearchBar'
+import styles from "./NavBar.module.css"
+import {Link} from "react-router-dom"
 
 
-const NavBar = () => {
+const NavBar = ({setDataToShow, setCurrentPage}) => {
 
     const dispatch = useDispatch()
     
@@ -14,36 +23,87 @@ const NavBar = () => {
 
     const tempDB = useSelector(state=>state.get_temp_db)   
     const tempApi = useSelector(state=>state.get_temp_api)
-    const filterTemp = useSelector(state=>state.filter_temp)
-
-
-
-    const handlerChange = (event) =>{
+    // *****************************************************************
+    const handlerChangeApi = (event) =>{
+        event.preventDefault()        
+        dispatch(filterTemp(event.target.value))
+    } 
+    const tempsApi = useSelector(state=>state.filter_temp)
+    useEffect(()=>{
+        setDataToShow(tempsApi)
+    },[tempsApi])
+    // *****************************************************************
+    const handlerChangeDb = (event) =>{
+        event.preventDefault()        
+        dispatch(filterTemp(event.target.value))
+    } 
+    const tempsDb = useSelector(state=>state.filter_temp_db)
+    useEffect(()=>{
+        setDataToShow(tempsDb)
+    },[tempsDb])
+    // *****************************************************************
+    const handlerOrderAscDes = (event) =>{
         event.preventDefault()
-        const temp = event.target.value
-        dispatch(filterTemp(temp))
-    }    
+        dispatch(orderAscDes(event.target.value))
+        setCurrentPage(1)
+    }
+    const orderAsc = useSelector(state=>state.order_asc_des)
+    useEffect(()=>{
+        setDataToShow(orderAsc)
+    },[orderAsc])
+    // *****************************************************************
+    const handlerOrderMinMax = (event) =>{
+        event.preventDefault()
+        dispatch(orderMaxMin(event.target.value))
+        setCurrentPage(1)
+    }
+    const orderMax = useSelector(state=>state.order_max_min)
+    useEffect(()=>{
+        setDataToShow(orderMax)
+    },[orderMax])
+
   return (
     <>  
-        <label htmlFor="temperament">Temperament API</label>
-        <select onChange={handlerChange} >
-            <option value="">Select</option>
-            {
-                tempApi.map((value,index)=>{
-                   return <option key={index} value={value}>{value}</option>
-                })
-            }
-        </select>
+        <div className={styles.container}>
+            <SearchBar setDataToShow={setDataToShow}/>
+            <label htmlFor="temperament">Temperament API</label>
+            <select onChange={handlerChangeApi} >
+                <option value="">Select</option>
+                {
+                    tempApi.map((value,index)=>{
+                    return <option key={index} value={value}>{value}</option>
+                    })
+                }
+            </select>
 
-        <label htmlFor="temperament">Temperament DB</label>
-        <select name="" id="">
-            <option value="">Select</option>
-            {
-                tempDB.map((value,index)=>{
-                   return <option key={index} value={value}>{value}</option>
-                })
-            }
-        </select>
+            <label htmlFor="temperament">Temperament DB</label>
+            <select onChange={handlerChangeDb}>
+                <option value="">Select</option>
+                {
+                    tempDB.map((value,index)=>{
+                    return <option key={index} value={value}>{value}</option>
+                    })
+                }
+            </select>
+
+            <label htmlFor="temperament">Order ASC/DES</label>
+            <select onChange={handlerOrderAscDes}>
+                <option value="">Select</option>
+                <option value="ASC">ASC</option>
+                <option value="DES">DES</option>
+                
+            </select>
+
+            <label htmlFor="temperament">Order Height</label>
+            <select onChange={handlerOrderMinMax}>
+                <option value="">Select</option>
+                <option value="min_max">min - max</option>
+                <option value="max_min">max - min</option>            
+            </select>
+            <Link to={"/form"}>
+              <button>Create 🐕‍🦺</button>  
+            </Link>
+        </div>
 
     </>
   )

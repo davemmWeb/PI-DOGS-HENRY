@@ -62,14 +62,22 @@ const getForId = async (idRace) => {
   }
 };
 
-const createDog = async (image, name, height, weight, life_span) => {
-  const newDog = Dog.create({
+const createDog = async (
+  image,
+  name,
+  height,
+  weight,
+  life_span,
+  temperaments
+) => {
+  const newDog = await Dog.create({
     image,
     name,
     height,
     weight,
     life_span,
   });
+  const dogTemp = await newDog.addTemperaments(temperaments);
   return newDog;
 };
 module.exports = { getDogs, getForId, createDog, getForName };
