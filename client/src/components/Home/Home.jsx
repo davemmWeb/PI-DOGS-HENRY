@@ -38,7 +38,7 @@ const Home = () => {
                 dataToShow.length ? dataToShow.slice(startIndex, endIndex).map((value,index)=>{
                     return <Card key={index} 
                         id= {value.id}
-                        image = {value.image.url}
+                        image = {value.reference_image_id?`https://cdn2.thedogapi.com/images/${value.reference_image_id}.jpg`: value.image.url}
                         name = {value.name}
                         temperament = {value.temperament}
                         weight = {value.weight.imperial}

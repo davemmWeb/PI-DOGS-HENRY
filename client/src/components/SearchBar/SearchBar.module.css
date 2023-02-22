@@ -1,7 +1,24 @@
 .container{
-    width: 14%;
+    width: 15%;  
+    margin-left: 4%;
 }
 .container input{
-    width: 60%;
+    width: 70%;
+    height: 30px;
     border-radius: 6px;
+}
+.container button{    
+    width: 37px;
+    border-radius: 30px;
+    margin-left: 0.5em;
+    background-color: rgba(120, 120, 120, 0.2);
+    border: solid 1px rgba(120, 120, 120, 0.1);
+    font-size: 20px; 
+    margin-top: 5px;   
+    transition: transform(0.5s)
+}
+.container button:hover{
+    background-color: aliceblue;   
+    border: solid 1px rgb(250, 248, 248);
+    box-shadow: 1px 1px 1px 1px rgb(29, 26, 26);
 }

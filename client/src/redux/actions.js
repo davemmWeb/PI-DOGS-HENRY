@@ -26,9 +26,15 @@ export const getDogs = () => {
 };
 
 export const searchForName = (name) => {
-  return {
-    type: "SEARCH_FOR_NAME",
-    payload: name,
+  return (dispatch) => {
+    fetch(`http://localhost:3001/dogs?name=${name}`)
+      .then((res) => res.json())
+      .then((data) => {
+        return dispatch({
+          type: SEARCH_FOR_NAME,
+          payload: data,
+        });
+      });
   };
 };
 
@@ -40,16 +46,17 @@ export const getDetail = (id) => {
 };
 
 export const getTempDB = () => {
-  return function (dispatch) {
-    fetch("http://localhost:3001/temperaments")
-      .then((res) => res.json())
-      .then((data) => {
-        return dispatch({
-          type: "GET_TEMP_DB",
-          payload: data,
-        });
-      })
-      .catch((err) => err.message);
+  return async function (dispatch) {
+    try {
+      let res = await axios.get("http://localhost:3001/temperaments"),
+        json = await res.data;
+      return dispatch({
+        type: GET_TEMP_DB,
+        payload: json,
+      });
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 };
 

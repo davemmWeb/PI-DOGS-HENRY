@@ -3,15 +3,18 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0%;
 }
 .form{
     background-color: rgba(150, 150, 150, 0.5);
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 20px;
-    max-width: 500px;
-    margin-top: 3rem;
-    height: 32em;
+    width: 45%;    
+    height: 37em;
+    margin-left: 0%;
 }
 label{
     display: inline-block;
@@ -50,13 +53,23 @@ button[type="submit"] {
   .error{
     border: solid 2px red;
   }
+  .video{
+    width: 90%;
+    margin-top: 5rem;
+  }
   .dataNewDog{
-    background-color: antiquewhite;
-    width: 30%;
-    height: 33em;
-    margin-top: 3rem;
-    margin-left: 4%;
+    width: 50%;
+    height: 40em;    
     border-radius: 2%;
+    margin: 0%;
+  }
+  .data{
+    background-color: rgba(120, 120, 120, 0.5);
+    width: 30%;
+    height: 20em;
+    position: absolute;
+    top: 4rem;
+    display: flex;
   }
   .previewImage{
     width: 30%;

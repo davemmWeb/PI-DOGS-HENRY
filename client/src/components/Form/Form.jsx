@@ -12,12 +12,14 @@ import styles from "./Form.module.css"
 import { useDispatch } from 'react-redux'
 import { createNewRace } from '../../redux/actions'
 import {Link} from "react-router-dom"
+import coverVideo from "../../accets/video.mp4"
 
 
 const Form = () => {
 
   const dispatch = useDispatch()
-
+    
+  // ******************************************************************************************************
   const [data, setData] = useState({
     name: '',
     image:'',
@@ -26,7 +28,7 @@ const Form = () => {
     life_span: '',
     temperaments:[]
   })
-
+  
   const [errors, setErrors] = useState({
     name: '',
     image:'',
@@ -35,27 +37,23 @@ const Form = () => {
     life_span: '',
     temperaments: ''
   })
-
+  // ******************************************************************************************************
   const [imagePreview, setImagePreview] = useState('')
-
   const handlerImageSelect = (event)=>{
     const file = event.target.files[0]
     if(!file) return
-
     setData({
       ...data,
       image : file.name
     })
-
     const reading = new FileReader()
-    reading.readAsDataURL(file)
-    
+    reading.readAsDataURL(file)    
     reading.onload = function(){
       setImagePreview(reading.result)
     }
   }
-
-  const handlerInputChange = (event) =>{
+  // ******************************************************************************************************
+    const handlerInputChange = (event) =>{
     event.preventDefault()
     const {name} = event.target
     const {value} = event.target
@@ -64,12 +62,10 @@ const Form = () => {
       [name]:value
     })    
   }
-
+  // ******************************************************************************************************
   useEffect(() => {
     validation() 
   }, [data])
-  
-
   const validation = () =>{
     setErrors({
       ...errors,
@@ -81,7 +77,7 @@ const Form = () => {
       temperaments : validateTemp(data.temperaments),
     })
   }
-
+  // ******************************************************************************************************
   const deleteTemp = (event) =>{  
     event.preventDefault()     
     setData({
@@ -89,7 +85,7 @@ const Form = () => {
       temperaments : [...data.temperaments.filter(value=>value != event.target.value)]
     })
   }
-
+  // ******************************************************************************************************
   const handlerSubmit = (event) =>{
     event.preventDefault() 
     const {name,image,height,weight,life_span,temperaments} = data
@@ -136,24 +132,25 @@ const Form = () => {
       </form>
 
       <div className={styles.dataNewDog}>
-        <h1>New Dog</h1>
-        <h3>Name: {data.name}</h3>
-        <h3>Image: </h3>
-        {imagePreview && (
-             <img className={styles.previewImage} src={imagePreview} alt="Vista previa de imagen" />
-          )}
-        <h3>Height: {data.height}</h3>
-        <h3>Weight: {data.weight}</h3>
-        <h3>Life span: {data.life_span}</h3>
-        <h3>Temperaments: </h3>
-        {
-          data.temperaments.map((value,index)=>{
-            return <p key={index}>{value} <button value={value} onClick={deleteTemp}>❌</button></p>
-          })
-        }
-
+        <video className={styles.video} src={coverVideo} autoPlay loop muted/>
+        <div className={styles.data}>
+          <h1>New Dog</h1>
+          <h3>Name: {data.name}</h3>
+          <h3>Image: </h3>
+          {imagePreview && (
+              <img className={styles.previewImage} src={imagePreview} alt="Vista previa de imagen" />
+            )}
+          <h3>Height: {data.height}</h3>
+          <h3>Weight: {data.weight}</h3>
+          <h3>Life span: {data.life_span}</h3>
+          <h3>Temperaments: </h3>
+          {
+            data.temperaments.map((value,index)=>{
+              return <p key={index}>{value} <button value={value} onClick={deleteTemp}>❌</button></p>
+            })
+          }
+        </div>
       </div>
-
     </div>
     </>
   )

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 .container{
     display: flex;
     flex-wrap: wrap;
@@ -9,23 +10,44 @@
     font-size: 1em;
     margin-right: 1%;
 }
-select{
+.container select{
     width: 8%;
     font-size: 1em;
     margin-right: 1%;
     height: 1.5em;
 }
-select option{    
+.container select option{    
     font-size: 15px;    
 }
 
-.container button{
-    margin-left: 1em;
-    width: 6em;
-    background-color: rgb(45, 45, 195);
-    transition: transform(1s);
-    border-radius: 8px;
-    color: aliceblue;    
+.create{
+    position: absolute;
+    margin-left: 87%;
+    margin-top: 80%;
+    width: 8%;
+    height: 6em;
+    background-color: rgb(45, 45, 195);    
+    border-radius: 50%;
+    box-shadow: 1px 1px 1px 1px black;
+    animation-duration: 2s;
+    animation-name: slidein;
+    animation-iteration-count: infinite;
+}
+.create span{
+    font-family: 'Permanent Marker', cursive;
+    color: rgb(21, 19, 19);
+    margin-top: -1rem;
+    font-size: 26px;
+    cursor: pointer;   
+}
+@keyframes slidein{
+    from {
+        background-color: rgb(56, 56, 199);
+    }
+    to{
+        background-color: rgb(196, 203, 86);
+        transform: scale(1.1)
+    }
 }
 .container button:hover{
     background-color: rgb(68, 124, 237);

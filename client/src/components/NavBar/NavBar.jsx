@@ -6,7 +6,6 @@ import {
      orderAscDes,
      orderMaxMin } from '../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
-import Form from "../Form/Form"
 import SearchBar from '../SearchBar/SearchBar'
 import styles from "./NavBar.module.css"
 import {Link} from "react-router-dom"
@@ -65,9 +64,13 @@ const NavBar = ({setDataToShow, setCurrentPage}) => {
   return (
     <>  
         <div className={styles.container}>
-            <SearchBar setDataToShow={setDataToShow}/>
-            <label htmlFor="temperament">Temperament API</label>
-            <select onChange={handlerChangeApi} >
+            <div className={styles.create}>
+                <Link to={"/form"}>
+                    <span>Create 🐕‍🦺</span>  
+                </Link>
+            </div>
+            <label htmlFor="temperament">Temp API</label>
+            <select  onChange={handlerChangeApi} >
                 <option value="">Select</option>
                 {
                     tempApi.map((value,index)=>{
@@ -76,33 +79,31 @@ const NavBar = ({setDataToShow, setCurrentPage}) => {
                 }
             </select>
 
-            <label htmlFor="temperament">Temperament DB</label>
+            <label  htmlFor="temperament">Temp DB</label>
             <select onChange={handlerChangeDb}>
                 <option value="">Select</option>
                 {
                     tempDB.map((value,index)=>{
-                    return <option key={index} value={value}>{value}</option>
+                    return <option key={index} value={value.name}>{value.name}</option>
                     })
                 }
             </select>
 
-            <label htmlFor="temperament">Order ASC/DES</label>
-            <select onChange={handlerOrderAscDes}>
+            <label htmlFor="temperament">ASC / DES</label>
+            <select  onChange={handlerOrderAscDes}>
                 <option value="">Select</option>
                 <option value="ASC">ASC</option>
                 <option value="DES">DES</option>
                 
             </select>
 
-            <label htmlFor="temperament">Order Height</label>
+            <label htmlFor="temperament">MAX / MIN</label>
             <select onChange={handlerOrderMinMax}>
                 <option value="">Select</option>
-                <option value="min_max">min - max</option>
-                <option value="max_min">max - min</option>            
+                <option value="min_max">MIN - MAX</option>
+                <option value="max_min">MAX - MIN</option>            
             </select>
-            <Link to={"/form"}>
-              <button>Create 🐕‍🦺</button>  
-            </Link>
+            <SearchBar setDataToShow={setDataToShow}/>
         </div>
 
     </>

@@ -31,13 +31,9 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case SEARCH_FOR_NAME:
-      const dogs = state.all_dogs;
-      const dog = dogs.filter(
-        (value) => value.name.toLowerCase() === action.payload.toLowerCase()
-      );
       return {
         ...state,
-        search_for_name: dog,
+        search_for_name: action.payload,
       };
 
     case GET_DETAIL:
@@ -49,10 +45,9 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case GET_TEMP_DB:
-      const tempsDB = action.payload.map((value) => value.name);
       return {
         ...state,
-        get_temp_db: tempsDB,
+        get_temp_db: action.payload,
       };
 
     case GET_TEMP_API:
