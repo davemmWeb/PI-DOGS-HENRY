@@ -30,7 +30,7 @@ const NavBar = ({setDataToShow, setCurrentPage}) => {
     const tempsApi = useSelector(state=>state.filter_temp)
     useEffect(()=>{
         setDataToShow(tempsApi)
-    },[tempsApi])
+    },[tempsApi,setDataToShow])
     // *****************************************************************
     const handlerChangeDb = (event) =>{
         event.preventDefault()        
@@ -39,7 +39,7 @@ const NavBar = ({setDataToShow, setCurrentPage}) => {
     const tempsDb = useSelector(state=>state.filter_temp_db)
     useEffect(()=>{
         setDataToShow(tempsDb)
-    },[tempsDb])
+    },[tempsDb,setDataToShow])
     // *****************************************************************
     const handlerOrderAscDes = (event) =>{
         event.preventDefault()
@@ -49,7 +49,7 @@ const NavBar = ({setDataToShow, setCurrentPage}) => {
     const orderAsc = useSelector(state=>state.order_asc_des)
     useEffect(()=>{
         setDataToShow(orderAsc)
-    },[orderAsc])
+    },[orderAsc,setDataToShow])
     // *****************************************************************
     const handlerOrderMinMax = (event) =>{
         event.preventDefault()
@@ -59,14 +59,14 @@ const NavBar = ({setDataToShow, setCurrentPage}) => {
     const orderMax = useSelector(state=>state.order_max_min)
     useEffect(()=>{
         setDataToShow(orderMax)
-    },[orderMax])
+    },[orderMax,setDataToShow])
 
   return (
     <>  
         <div className={styles.container}>
             <div className={styles.create}>
                 <Link to={"/form"}>
-                    <span>Create 🐕‍🦺</span>  
+                    <p>Create 🐕‍🦺</p>  
                 </Link>
             </div>
             <label htmlFor="temperament">Temp API</label>

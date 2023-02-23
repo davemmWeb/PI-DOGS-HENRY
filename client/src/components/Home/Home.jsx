@@ -11,28 +11,32 @@ const ITEMS_PER_PAGE = 8;
 
 const Home = () => {
     const dispatch = useDispatch()
+    // **********************************************************************************
     useEffect(()=>{
         dispatch(getDogs())
     },[dispatch])
-
+    const allDogs = useSelector(state=>state.all_dogs)    
+    useEffect(()=>{
+        setDataToShow(allDogs)
+    },[allDogs]) 
+    // **********************************************************************************
     const [currentPage, setCurrentPage] = useState(1);
-    const [dataToShow, setDataToShow] = useState([])
-    
+    const [dataToShow, setDataToShow] = useState([])    
     const handlePageChange = (page) => {
         setCurrentPage(page);
     };
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const endIndex = startIndex + ITEMS_PER_PAGE;
-
-    const allDogs = useSelector(state=>state.all_dogs)    
-    useEffect(()=>{
-        setDataToShow(allDogs)
-    },[allDogs])       
+    const endIndex = startIndex + ITEMS_PER_PAGE;    
     
   return (
     <div>
         <NavBar setDataToShow={setDataToShow} setCurrentPage={setCurrentPage}/>
-        <Pagination currentPage={currentPage} totalPages={Math.ceil(dataToShow.length / ITEMS_PER_PAGE)} onPageChange={handlePageChange}/>
+        <Pagination 
+            currentPage={currentPage} 
+            totalPages={Math.ceil(dataToShow.length / ITEMS_PER_PAGE)} 
+            onPageChange={handlePageChange}
+            setCurrentPage={setCurrentPage}
+            />
         <div className={styles.containerCards}>
             {               
                 dataToShow.length ? dataToShow.slice(startIndex, endIndex).map((value,index)=>{
@@ -43,11 +47,9 @@ const Home = () => {
                         temperament = {value.temperament}
                         weight = {value.weight.imperial}
                     />
-                }): 
-                <div className={styles.loading}>
-                    <img src={loading} alt="loading" />
-                </div> 
-            }
+                }):  
+                    <img className={styles.imgLoading} src={loading} alt="loading" />
+            } 
         </div>
         
     </div>

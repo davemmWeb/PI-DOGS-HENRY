@@ -7,9 +7,14 @@ const Card = (props) => {
   return (
     <Link  to={`/detail/${props.id}`}>
         <div className={styles.container}>
-          <p>{props.name}</p>      
-          <p>{props.temperament}</p>
-          <img src={props.image} alt={props.name} />             
+          <h4>{props.name}</h4>  
+          <div className={styles.tempImg}>
+            <img src={props.image} alt={props.name} />             
+            <p>Weight: </p>
+            <br/>
+            {props.weight}
+          </div>    
+            <span>{props.temperament}</span>            
         </div>                 
       </Link> 
   )

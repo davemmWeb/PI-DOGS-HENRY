@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { getDetail } from '../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from "./Detail.module.css"
@@ -19,6 +19,11 @@ const Detail = () => {
         {
             detail.map((value,index)=>{
                 return <div className={styles.container} key={index}>
+                    <div className={styles.back}>
+                        <Link  to={"/home"}>
+                            <p>🔙</p>
+                        </Link>        
+                    </div>
                     <div className={styles.imageTitle}>
                         <h1>{value.name}</h1>
                         <img src={value.image.url} alt={value.name} />

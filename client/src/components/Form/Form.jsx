@@ -12,7 +12,7 @@ import styles from "./Form.module.css"
 import { useDispatch } from 'react-redux'
 import { createNewRace } from '../../redux/actions'
 import {Link} from "react-router-dom"
-import coverVideo from "../../accets/video.mp4"
+import coverVideo from "../../accets/videoDog2.mp4"
 
 
 const Form = () => {
@@ -108,7 +108,9 @@ const Form = () => {
     <>
     <div className={styles.container}>
       <div className={styles.getHome}>
-        <Link  to={"/home"}>Home 🏠</Link>        
+        <Link  to={"/home"}>
+          <p>Home 🏠</p>
+        </Link>        
       </div>
       <form action="submit" className={styles.form}>        
           <label htmlFor="name">Name</label>
@@ -134,21 +136,25 @@ const Form = () => {
       <div className={styles.dataNewDog}>
         <video className={styles.video} src={coverVideo} autoPlay loop muted/>
         <div className={styles.data}>
-          <h1>New Dog</h1>
+          <h2>New Dog</h2>
           <h3>Name: {data.name}</h3>
-          <h3>Image: </h3>
-          {imagePreview && (
-              <img className={styles.previewImage} src={imagePreview} alt="Vista previa de imagen" />
-            )}
+          <div className={styles.previewImage}>
+            <h3>Image: </h3>
+              {imagePreview && (
+                <img  src={imagePreview} alt="Vista previa de imagen" />
+              )}
+          </div>
           <h3>Height: {data.height}</h3>
           <h3>Weight: {data.weight}</h3>
           <h3>Life span: {data.life_span}</h3>
           <h3>Temperaments: </h3>
-          {
-            data.temperaments.map((value,index)=>{
-              return <p key={index}>{value} <button value={value} onClick={deleteTemp}>❌</button></p>
-            })
-          }
+          <div className={styles.temperaments}>
+            {
+              data.temperaments.map((value,index)=>{
+                return <p key={index}>{value} <button value={value} onClick={deleteTemp}>❌</button></p>
+              })
+            }
+          </div>
         </div>
       </div>
     </div>

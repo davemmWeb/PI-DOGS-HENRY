@@ -34,6 +34,10 @@ export const searchForName = (name) => {
           type: SEARCH_FOR_NAME,
           payload: data,
         });
+      })
+      .catch((err) => {
+        console.log(err.message);
+        alert("Race not found ");
       });
   };
 };

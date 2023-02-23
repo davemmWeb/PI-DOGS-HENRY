@@ -16,9 +16,7 @@
     margin-bottom: 6%;    
 }
 .imageTitle h1{
-    color: antiquewhite;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    
+    color: antiquewhite;    
 }
 .imageTitle img{
     width: 60%;
@@ -35,4 +33,31 @@
    border-radius:35px 5px; 
    box-shadow: 1px 6px rgb(15, 15, 15);
    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.back{
+    position: absolute;
+    border-radius: 50%;
+    height: 4em;
+    width: 5%;
+    left: 93%;
+    top: 4%;    
+    box-shadow: 1px 1px 1px 1px black;
+    animation-duration: 2s;
+    animation-name: slidein;
+    animation-iteration-count: infinite;
+}
+.back p{
+    font-size: 26px;
+    cursor: pointer; 
+    margin-top: 0.8rem;
+}
+@keyframes slidein{
+    from {
+        background-color: rgba(120, 156, 156, 0.5);
+    }
+    to{
+        background-color: rgba(244, 248, 248, 0.73);
+        transform: scale(1.1)
+    }
 }
