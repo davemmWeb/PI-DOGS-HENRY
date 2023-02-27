@@ -11,12 +11,11 @@ import styles from "./NavBar.module.css"
 import {Link} from "react-router-dom"
 
 
-const NavBar = ({setDataToShow, setCurrentPage}) => {
+const NavBar = ({setDataToShow, onPageChange}) => {
 
     const dispatch = useDispatch()
     
-    useEffect(() => {
-      dispatch(getTempDB())
+    useEffect(() => {      
       dispatch(getTempApi())
     }, [dispatch])
 
@@ -44,7 +43,7 @@ const NavBar = ({setDataToShow, setCurrentPage}) => {
     const handlerOrderAscDes = (event) =>{
         event.preventDefault()
         dispatch(orderAscDes(event.target.value))
-        setCurrentPage(1)
+        onPageChange(1)
     }
     const orderAsc = useSelector(state=>state.order_asc_des)
     useEffect(()=>{
@@ -54,7 +53,7 @@ const NavBar = ({setDataToShow, setCurrentPage}) => {
     const handlerOrderMinMax = (event) =>{
         event.preventDefault()
         dispatch(orderMaxMin(event.target.value))
-        setCurrentPage(1)
+        onPageChange(1)
     }
     const orderMax = useSelector(state=>state.order_max_min)
     useEffect(()=>{
@@ -71,7 +70,7 @@ const NavBar = ({setDataToShow, setCurrentPage}) => {
             </div>
             <label htmlFor="temperament">Temp API</label>
             <select  onChange={handlerChangeApi} >
-                <option value="">Select</option>
+                <option value="">All</option>
                 {
                     tempApi.map((value,index)=>{
                     return <option key={index} value={value}>{value}</option>
@@ -80,8 +79,8 @@ const NavBar = ({setDataToShow, setCurrentPage}) => {
             </select>
 
             <label  htmlFor="temperament">Temp DB</label>
-            <select onChange={handlerChangeDb}>
-                <option value="">Select</option>
+            <select name='temperament' onChange={handlerChangeDb}>
+                <option value="">All</option>
                 {
                     tempDB.map((value,index)=>{
                     return <option key={index} value={value.name}>{value.name}</option>
@@ -91,7 +90,7 @@ const NavBar = ({setDataToShow, setCurrentPage}) => {
 
             <label htmlFor="temperament">ASC / DES</label>
             <select  onChange={handlerOrderAscDes}>
-                <option value="">Select</option>
+                <option value="">All</option>
                 <option value="ASC">ASC</option>
                 <option value="DES">DES</option>
                 
@@ -99,7 +98,7 @@ const NavBar = ({setDataToShow, setCurrentPage}) => {
 
             <label htmlFor="temperament">MAX / MIN</label>
             <select onChange={handlerOrderMinMax}>
-                <option value="">Select</option>
+                <option value="">All</option>
                 <option value="min_max">MIN - MAX</option>
                 <option value="max_min">MAX - MIN</option>            
             </select>

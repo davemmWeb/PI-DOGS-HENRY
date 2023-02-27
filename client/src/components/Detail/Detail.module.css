@@ -1,4 +1,17 @@
 .container{
+    background-image: url("../../accets/fondo-inicio.jpg");
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 40rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+.containerDetail{
     width: 90%;
     height: 35rem;
     margin-left: auto;
@@ -28,7 +41,6 @@
 .details{
    width: 45%; 
    background-color: rgb(222, 203, 142);    
-   margin: 0 auto; 
    border: solid 1px black;
    border-radius:35px 5px; 
    box-shadow: 1px 6px rgb(15, 15, 15);

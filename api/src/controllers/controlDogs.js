@@ -9,8 +9,12 @@ const getDogs = async () => {
     `https://api.thedogapi.com/v1/breeds?api_key=${API_PASSWORD}`
   );
   const json = await res.data;
-  // const races = [];
-  // json.map((value) => races.push({ race: value.name }));
+  const newDog = await Dog.findAll({
+    include: {
+      model: Temperament,
+    },
+  });
+  json.push(...newDog);
   return json;
 };
 
@@ -77,7 +81,12 @@ const createDog = async (
     weight,
     life_span,
   });
-  const dogTemp = await newDog.addTemperaments(temperaments);
-  return newDog;
+  await newDog.addTemperaments(temperaments);
+  const endDog = await Dog.findAll({
+    include: {
+      model: Temperament,
+    },
+  });
+  return endDog;
 };
 module.exports = { getDogs, getForId, createDog, getForName };

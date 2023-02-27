@@ -1,20 +1,22 @@
 import React,{useEffect, useState} from 'react'
 import Card from '../Card/Card'
 import { useSelector, useDispatch } from 'react-redux'
-import { getDogs } from '../../redux/actions'
+import { getDogs,getTempDB } from '../../redux/actions'
 import styles from "./Home.module.css"
 import NavBar from '../NavBar/NavBar'
 import loading from '../../accets/reloading.gif'
 import Pagination from '../Pagination/Pagination'
 
+
 const ITEMS_PER_PAGE = 8;
 
 const Home = () => {
     const dispatch = useDispatch()
-    // **********************************************************************************
-    useEffect(()=>{
+    // **********************************************************************************   
+    useEffect(()=>{ 
+        dispatch(getTempDB())
         dispatch(getDogs())
-    },[dispatch])
+    },[])
     const allDogs = useSelector(state=>state.all_dogs)    
     useEffect(()=>{
         setDataToShow(allDogs)
@@ -29,8 +31,8 @@ const Home = () => {
     const endIndex = startIndex + ITEMS_PER_PAGE;    
     
   return (
-    <div>
-        <NavBar setDataToShow={setDataToShow} setCurrentPage={setCurrentPage}/>
+    <div className={styles.container}>
+        <NavBar setDataToShow={setDataToShow} onPageChange={handlePageChange}/>
         <Pagination 
             currentPage={currentPage} 
             totalPages={Math.ceil(dataToShow.length / ITEMS_PER_PAGE)} 
@@ -44,8 +46,8 @@ const Home = () => {
                         id= {value.id}
                         image = {value.reference_image_id?`https://cdn2.thedogapi.com/images/${value.reference_image_id}.jpg`: value.image.url}
                         name = {value.name}
-                        temperament = {value.temperament}
-                        weight = {value.weight.imperial}
+                        temperament = {value.temperaments?value.temperaments.map(value=>value.name):value.temperament}
+                        weight = {value.weight.imperial?value.weight.imperial:value.weight}
                     />
                 }):  
                     <img className={styles.imgLoading} src={loading} alt="loading" />

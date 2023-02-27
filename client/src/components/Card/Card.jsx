@@ -5,7 +5,7 @@ import styles from "./Card.module.css"
 const Card = (props) => {
     
   return (
-    <Link  to={`/detail/${props.id}`}>
+    <Link  to={`/detail/${props.name}`}>
         <div className={styles.container}>
           <h4>{props.name}</h4>  
           <div className={styles.tempImg}>
@@ -19,5 +19,4 @@ const Card = (props) => {
       </Link> 
   )
 }
-
 export default Card

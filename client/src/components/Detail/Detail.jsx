@@ -15,10 +15,10 @@ const Detail = () => {
     const detail = useSelector(state=>state.get_detail)    
     
   return (
-    <>    
+    <div className={styles.container}>    
         {
             detail.map((value,index)=>{
-                return <div className={styles.container} key={index}>
+                return <div className={styles.containerDetail} key={index}>
                     <div className={styles.back}>
                         <Link  to={"/home"}>
                             <p>🔙</p>
@@ -41,7 +41,7 @@ const Detail = () => {
                 </div>
             })
         }   
-    </>
+    </div>
   )
 }
 

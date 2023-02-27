@@ -38,7 +38,7 @@ const rootReducer = (state = initialState, action) => {
 
     case GET_DETAIL:
       const details = state.all_dogs;
-      const detail = details.filter((value) => value.id == action.payload);
+      const detail = details.filter((value) => value.name === action.payload);
       return {
         ...state,
         get_detail: detail,
@@ -53,18 +53,19 @@ const rootReducer = (state = initialState, action) => {
     case GET_TEMP_API:
       const data = action.payload;
       const arrTemps = [];
-      const onlyTemps = data.map((value) => value.temperament);
-      const temps = onlyTemps.join(",").split(",");
+      const filterTemp = data.map((value) => value.temperament);
+      const separetTemps = filterTemp.join(",").split(",");
       const mySet = new Set();
-      temps.forEach((e) => {
+      separetTemps.forEach((e) => {
         mySet.add(e.trim() ? e.trim() : "not found");
       });
       for (const item of mySet) {
         arrTemps.push(item);
       }
+      const orderTemps = arrTemps.sort();
       return {
         ...state,
-        get_temp_api: arrTemps,
+        get_temp_api: orderTemps,
       };
 
     case FILTER_TEMP:
@@ -106,7 +107,7 @@ const rootReducer = (state = initialState, action) => {
           });
       return {
         ...state,
-        order_asc_des: filter,
+        order_asc_des: [...filter],
       };
     case ORDER_MAX_MIN:
       const filterMax = state.filter_temp.length
@@ -124,7 +125,7 @@ const rootReducer = (state = initialState, action) => {
           });
       return {
         ...state,
-        order_max_min: filterMax,
+        order_max_min: [...filterMax],
       };
 
     default:

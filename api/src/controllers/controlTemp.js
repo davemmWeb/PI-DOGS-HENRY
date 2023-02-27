@@ -14,16 +14,23 @@ const getTemp = async () => {
   temps.forEach((e) => {
     mySet.add(e.trim() ? e.trim() : "not found");
   });
-  const arrSet = Array.from(mySet);
-  arrSet.forEach((e) => {
-    Temperament.create({
-      name: e,
-    });
+  const cheackTemp = await Temperament.findAll({
+    order: [["name", "ASC"]],
   });
+  if (cheackTemp.length > 0) {
+    return cheackTemp;
+  } else {
+    for (const item of mySet) {
+      Temperament.create({
+        name: item,
+      });
+    }
+    const temperaments = await Temperament.findAll({
+      order: [["name", "ASC"]],
+    });
 
-  const temperaments = await Temperament.findAll();
-
-  return temperaments;
+    return temperaments;
+  }
 };
 
 module.exports = { getTemp };
