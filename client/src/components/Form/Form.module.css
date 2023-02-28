@@ -14,10 +14,10 @@
     border-radius: 5px;
     padding: 20px;
     width: 45%;  
-    margin-top: 1rem; 
     display: flex;
     flex-wrap: wrap;
-    align-items: center; 
+    align-items: center;
+    height: 34rem; 
 }
 .form h4{
   width: 20%;
@@ -44,6 +44,8 @@ button[type="submit"] {
     border-radius: 4px;
     cursor: pointer;
     margin-top: 2rem;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   button[type="submit"]:hover {
@@ -72,6 +74,12 @@ button[type="submit"] {
   }
   .errorh3{
     color: red;
+  }
+  .errorTemp{
+    color: red;
+    font-size: 1.4em;
+    margin-left: auto;
+    margin-right: auto;
   }
   /* **********************NEW RACE **************************** */
   .dataNewDog{

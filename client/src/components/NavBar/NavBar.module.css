@@ -1,23 +1,39 @@
 .container{
+    margin-top: 1rem;
+}
+.search{
+    position: relative;
+}
+.filters{
     display: flex;
     flex-wrap: wrap;
-    margin-top: 1rem;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
-.container label{
-    font-size: 1em;
-    margin-right: 1%;
-}
-.container select{
+.filters select{
     width: 8%;
-    font-size: 1em;
-    margin-right: 1%;
-    height: 1.5em;
 }
-.container select option{    
-    font-size: 15px;    
+.filters label{
+    width: 10%;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .create{
     position: absolute;

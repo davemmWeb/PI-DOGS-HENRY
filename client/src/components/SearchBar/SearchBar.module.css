@@ -1,6 +1,8 @@
 .container{
+    position: absolute;
     width: 15%;  
-    margin-left: 4%;
+    left: 4%;
+    top: 3rem;
 }
 .container input{
     width: 70%;

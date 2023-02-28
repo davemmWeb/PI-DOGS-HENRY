@@ -4,7 +4,8 @@ import {
   validateImage,
   validateHeight,
   validateWeight,
-  validateLifeSpan, 
+  validateLifeSpan,
+  validateTemperaments, 
   } from './Validations'
 import FormTemp from '../FormTemp/FormTemp'
 import styles from "./Form.module.css"
@@ -36,22 +37,7 @@ const Form = () => {
     weight: '',
     life_span: '',
     temperaments: ''
-  })
-  // ******************************************************************************************************
-  const [imagePreview, setImagePreview] = useState('')
-  const handlerImageSelect = (event)=>{
-    const file = event.target.files[0]
-    if(!file) return
-    setData({
-      ...data,
-      image : file.name
-    })
-    const reading = new FileReader()
-    reading.readAsDataURL(file)    
-    reading.onload = function(){
-      setImagePreview(reading.result)
-    }
-  }
+  })  
   // ******************************************************************************************************
     const handlerInputChange = (event) =>{
     event.preventDefault()
@@ -95,6 +81,7 @@ const Form = () => {
       height: validateHeight(data.height),
       weight: validateWeight(data.weight),
       life_span: validateLifeSpan(data.life_span),
+      temperaments : validateTemperaments(data.temperaments)
     })
   }
   // ******************************************************************************************************
@@ -136,14 +123,16 @@ const Form = () => {
             className={errors.name && styles.error} 
             type="text" 
             name='name' 
+            placeholder='insert name new race'
             onChange={handlerInputChange}/>          
           {/* *****************INPUT IMAGE********************* */}
           <label htmlFor="image">Image</label>
           <input 
             className={errors.image && styles.error} 
-            type="file" 
+            type="text" 
             name='image' 
-            onChange={handlerImageSelect}/>          
+            placeholder='Insert "url" of image'
+            onChange={handlerInputChange}/>          
          {/* *******************SELECT HEIGHT******************* */}
           <h4>Height</h4>
           <label htmlFor="height">Min</label>
@@ -198,8 +187,7 @@ const Form = () => {
           <option value="">Select</option>
             {options}
           </select>
-         {/* ************************************** */}         
-
+        {/* *******************SELECT TEMPERAMENTS******************* */}
         <FormTemp  
           errors={errors} 
           tempsName={tempsName} 
@@ -214,12 +202,16 @@ const Form = () => {
       <div className={styles.dataNewDog}>
         <div className={styles.data}>
           <h2>New Dog</h2>
+          {/* *********************************** NAME *********************************** */}
           <h3>Name: {errors.name ? <span className={styles.errorh3}>{errors.name}</span> : data.name}</h3>
+          {/* *********************************** IMAGE *********************************** */}
           <div className={styles.previewImage}>
-            <h3>Image: {errors.image && <span className={styles.errorh3}>{errors.image}</span>}</h3>
-              {imagePreview && (
-                <img  src={imagePreview} alt="Vista previa de imagen" />
-                )}
+            <h3>Image: { 
+              errors.image ? 
+              <span className={styles.errorh3}>{errors.image}</span> : 
+              <img  src={data.image} alt="Vista previa de imagen" />
+            }
+            </h3>             
           </div>
           {/* *********************************** HEIGHT *********************************** */}
           <h3>Height: 
@@ -245,10 +237,10 @@ const Form = () => {
           {/* *********************************** TEMPERAMENTS *********************************** */}
           <h3>Temperaments: </h3>
           <div className={styles.temperaments}>
-            {
+            { tempsName.length > 0 ?
               tempsName.map((value,index)=>{
                 return <p key={index}>{value} <button value={value} onClick={deleteTemp}>❌</button></p>
-              })
+              }): <span className={styles.errorTemp}>{errors.temperaments}</span>
             }
           </div>
         </div>

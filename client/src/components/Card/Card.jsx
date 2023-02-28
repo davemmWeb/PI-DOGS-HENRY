@@ -9,12 +9,13 @@ const Card = (props) => {
         <div className={styles.container}>
           <h4>{props.name}</h4>  
           <div className={styles.tempImg}>
-            <img src={props.image} alt={props.name} />             
-            <p>Weight: </p>
-            <br/>
-            {props.weight}
+            <img src={props.image} alt={props.name} /> 
+            <div className={styles.weight}>
+              <p>Weight: </p>
+              <p>{props.weight}</p>
+            </div>            
           </div>    
-            <span>{props.temperament}</span>            
+            <span>{props.temperament ? props.temperament : "Not have"}</span>            
         </div>                 
       </Link> 
   )

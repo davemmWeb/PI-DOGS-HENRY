@@ -68,41 +68,46 @@ const NavBar = ({setDataToShow, onPageChange}) => {
                     <p>Create 🐕‍🦺</p>  
                 </Link>
             </div>
-            <label htmlFor="temperament">Temp API</label>
-            <select  onChange={handlerChangeApi} >
-                <option value="">All</option>
-                {
-                    tempApi.map((value,index)=>{
-                    return <option key={index} value={value}>{value}</option>
-                    })
-                }
-            </select>
+            <div className={styles.search}>
+                <SearchBar setDataToShow={setDataToShow}/>
+            </div>
+            <div className={styles.filters}>
+                <label htmlFor="temperament">Temp API</label>
+                <select onChange={handlerChangeApi} name="temperament">
+                    <option value="">All</option>
+                    {
+                        tempApi.map((value,index)=>{
+                        return <option key={index} value={value}>{value}</option>
+                        })
+                    }
+                </select>
 
-            <label  htmlFor="temperament">Temp DB</label>
-            <select name='temperament' onChange={handlerChangeDb}>
-                <option value="">All</option>
-                {
-                    tempDB.map((value,index)=>{
-                    return <option key={index} value={value.name}>{value.name}</option>
-                    })
-                }
-            </select>
+                <label  htmlFor="temperament">Temp DB</label>
+                <select onChange={handlerChangeDb} name="temperament">
+                    <option value="">All</option>
+                    {
+                        tempDB.map((value,index)=>{
+                        return <option key={index} value={value.name}>{value.name}</option>
+                        })
+                    }
+                </select>
 
-            <label htmlFor="temperament">ASC / DES</label>
-            <select  onChange={handlerOrderAscDes}>
-                <option value="">All</option>
-                <option value="ASC">ASC</option>
-                <option value="DES">DES</option>
-                
-            </select>
+                <label htmlFor="temperament">ASC / DES</label>
+                <select  onChange={handlerOrderAscDes}>
+                    <option value="">All</option>
+                    <option value="ASC">ASC</option>
+                    <option value="DES">DES</option>
+                    
+                </select>
 
-            <label htmlFor="temperament">MAX / MIN</label>
-            <select onChange={handlerOrderMinMax}>
-                <option value="">All</option>
-                <option value="min_max">MIN - MAX</option>
-                <option value="max_min">MAX - MIN</option>            
-            </select>
-            <SearchBar setDataToShow={setDataToShow}/>
+                <label htmlFor="temperament">MAX / MIN</label>
+                <select onChange={handlerOrderMinMax}>
+                    <option value="">All</option>
+                    <option value="min_max">MIN - MAX</option>
+                    <option value="max_min">MAX - MIN</option>            
+                </select>
+            </div>
+
         </div>
 
     </>

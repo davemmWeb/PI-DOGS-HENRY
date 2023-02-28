@@ -12,7 +12,7 @@
     z-index: -1;
 }
 .containerDetail{
-    width: 90%;
+    width: 70%;
     height: 35rem;
     margin-left: auto;
     margin-right: auto;
@@ -24,29 +24,29 @@
     align-items: center;   
 }
 .imageTitle{
-    width: 50%;     
-    margin: 0 auto;
-    margin-bottom: 6%;    
+    width: 40%;     
 }
 .imageTitle h1{
-    color: antiquewhite;    
+    color: black;    
 }
 .imageTitle img{
-    width: 60%;
-    height: 20em;
+    width: 80%;
+    height: 18em;
     border: solid 1px black;
-    border-radius:35px 5px; 
-    box-shadow: 1px 6px rgb(15, 15, 15);
+    border-radius: 20px 20px; 
+    box-shadow:  4px 4px 4px 2px rgb(15, 15, 15);
 }
 .details{
    width: 45%; 
-   background-color: rgb(222, 203, 142);    
+   background-color: rgba(200, 200, 200, 0.7);    
    border: solid 1px black;
-   border-radius:35px 5px; 
-   box-shadow: 1px 6px rgb(15, 15, 15);
+   border-radius: 20px 20px; 
+   box-shadow: 4px 4px 4px 2px rgb(15, 15, 15);
    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
+
+/* ***********************BACK************************** */
 .back{
     position: absolute;
     border-radius: 50%;

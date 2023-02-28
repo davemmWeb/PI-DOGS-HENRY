@@ -6,6 +6,7 @@ import styles from "./Home.module.css"
 import NavBar from '../NavBar/NavBar'
 import loading from '../../accets/reloading.gif'
 import Pagination from '../Pagination/Pagination'
+import { Link } from 'react-router-dom'
 
 
 const ITEMS_PER_PAGE = 8;
@@ -32,19 +33,24 @@ const Home = () => {
     
   return (
     <div className={styles.container}>
+        <div className={styles.exit}>
+            <Link to={"/"}>
+                <p>Exit 📤</p>
+            </Link>
+        </div>
         <NavBar setDataToShow={setDataToShow} onPageChange={handlePageChange}/>
         <Pagination 
-            currentPage={currentPage} 
-            totalPages={Math.ceil(dataToShow.length / ITEMS_PER_PAGE)} 
-            onPageChange={handlePageChange}
-            setCurrentPage={setCurrentPage}
-            />
+          currentPage={currentPage} 
+          totalPages={Math.ceil(dataToShow.length / ITEMS_PER_PAGE)} 
+          onPageChange={handlePageChange}
+          setCurrentPage={setCurrentPage}
+        />
         <div className={styles.containerCards}>
             {               
                 dataToShow.length ? dataToShow.slice(startIndex, endIndex).map((value,index)=>{
                     return <Card key={index} 
                         id= {value.id}
-                        image = {value.reference_image_id?`https://cdn2.thedogapi.com/images/${value.reference_image_id}.jpg`: value.image.url}
+                        image = {value.reference_image_id?`https://cdn2.thedogapi.com/images/${value.reference_image_id}.jpg`: value.image}
                         name = {value.name}
                         temperament = {value.temperaments?value.temperaments.map(value=>value.name):value.temperament}
                         weight = {value.weight.imperial?value.weight.imperial:value.weight}

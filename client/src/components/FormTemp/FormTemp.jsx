@@ -19,12 +19,12 @@ const FormTemp = ({errors, tempsName,setTempsName,data,setData}) => {
   return (
     <>
         <label  htmlFor="temp">Temperament</label>
-        <select className={errors.temperaments && styles.error} 
+        <select className={errors.temperaments ? styles.error : styles.select} 
                 name="temperaments" 
-                onChange={handlerSelectChange}>          
+                onChange={handlerSelectChange}>  
           {
             temps.map((value,index)=>{ 
-                return <option key={index} value={value.id} >{value.name}</option>
+                return <option className={styles.option} key={index} value={value.id} >{value.name}</option>
             })
           }          
         </select>
