@@ -1,18 +1,26 @@
 import React, {useEffect} from 'react'
-import { useParams, Link } from 'react-router-dom'
-import { getDetail } from '../../redux/actions'
+import { useParams, Link, useNavigate} from 'react-router-dom'
+import { getDetail,deleteDog } from '../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from "./Detail.module.css"
 
 const Detail = () => {
     const dispatch = useDispatch()
     const {id} = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
       dispatch(getDetail(id))
     }, [dispatch])
     
-    const detail = useSelector(state=>state.get_detail)    
+    const detail = useSelector(state=>state.get_detail) 
+    
+    const onDelete = (event) =>{
+        event.preventDefault()
+        dispatch(deleteDog(id))
+        navigate("/home")
+    }
+    
     
   return (
     <div className={styles.container}>    
@@ -29,6 +37,9 @@ const Detail = () => {
                         <img src={value.image.url?value.image.url:value.image} alt={value.name} />
                     </div>
                     <div className={styles.details}>
+                        {
+                            !value.image.url && <button onClick={onDelete}>Delete</button>
+                        }                        
                         <p>🐶Height imperial : {value.height.imperial ? value.height.imperial : value.height}</p>
                         <p>🐶Height metric : {value.height.metric ? value.height.metric : value.height}</p>
                         <p>🐶Life Span : {value.life_span ? value.life_span : "not asigned"}</p>
@@ -43,8 +54,8 @@ const Detail = () => {
                                 </div>
                             })
                         }</p>
-                        <p>🐶Weight imperial : {value.weight.imperial ? value.weight.imperial : "not asigned"}</p>
-                        <p>🐶Weight metric : {value.weight.metric ? value.weight.metric : "not asigned"}</p>
+                        <p>🐶Weight imperial : {value.weight.imperial ? value.weight.imperial : value.weight}</p>
+                        <p>🐶Weight metric : {value.weight.metric ? value.weight.metric : value.weight}</p>
                     </div>
                 </div>
             })

@@ -105,6 +105,10 @@ button[type="submit"] {
     margin-left: auto;
     margin-right: auto;
   }
+  .data h2{
+    color: #000000;
+    background-color: rgba(242, 236, 236, 0.5);
+  }
   .previewImage{
     width: 80%;    
     display: flex;

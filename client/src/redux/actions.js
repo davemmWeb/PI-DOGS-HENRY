@@ -111,7 +111,17 @@ export const createNewRace = (data) => {
       const res = await axios.post("http://localhost:3001/dogs", data);
       alert("The race was satisfactorily created");
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
+    }
+  };
+};
+export const deleteDog = (name) => {
+  return async function () {
+    try {
+      const res = await axios.delete(`http://localhost:3001/dogs?name=${name}`);
+      alert("the breed was erased");
+    } catch (err) {
+      console.log(err.message);
     }
   };
 };

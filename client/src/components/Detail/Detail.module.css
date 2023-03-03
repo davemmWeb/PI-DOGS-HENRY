@@ -44,7 +44,16 @@
    box-shadow: 4px 4px 4px 2px rgb(15, 15, 15);
    font-family: Georgia, 'Times New Roman', Times, serif;
 }
-
+.details button{
+    border-radius: 4px;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+.details button:hover{
+    background-color: black;
+    color: antiquewhite;
+    border-color: antiquewhite;
+}
 
 /* ***********************BACK************************** */
 .back{

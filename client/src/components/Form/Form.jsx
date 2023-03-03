@@ -70,9 +70,15 @@ const Form = () => {
     }  
   }
   // ******************************************************************************************************
+  const [tempsName, setTempsName] = useState([])
+  const options = []
+    for (let i = 1; i <= 180; i++) {
+      options.push(<option key={i}value={i}>{i}</option>)      
+  }
+  // ******************************************************************************************************
   useEffect(() => {
     validation() 
-  }, [data])
+  }, [data,tempsName])
   const validation = () =>{
     setErrors({
       ...errors,
@@ -81,32 +87,41 @@ const Form = () => {
       height: validateHeight(data.height),
       weight: validateWeight(data.weight),
       life_span: validateLifeSpan(data.life_span),
-      temperaments : validateTemperaments(data.temperaments)
+      temperaments : validateTemperaments(tempsName)
     })
   }
   // ******************************************************************************************************
   const deleteTemp = (event) =>{  
-    event.preventDefault()     
-    setTempsName([...tempsName.filter(value=>value != event.target.value)]
-    )
+    event.preventDefault()
+    const index = tempsName.indexOf(event.target.value)
+    const filterTemp = data.temperaments.splice(index,1)     
+    setTempsName([...tempsName.filter(value=>value !== event.target.value)])    
   }
+  
   // ******************************************************************************************************
   const handlerSubmit = (event) =>{
     event.preventDefault()     
     const {name,image,height,weight,life_span,temperaments} = data    
     if([name,image,height,weight,life_span].every((str)=>str.trim().length > 0) && temperaments.length > 0){
-      dispatch(createNewRace(data))       
+      dispatch(createNewRace(data))  
+      handlerClear()    
     }else{
-      return alert("Data incomplete")
-    }   
+      alert("Data incomplete")
+    }      
   } 
   // ******************************************************************************************************
-  const [tempsName, setTempsName] = useState([])
-  const options = []
-    for (let i = 1; i < 20; i++) {
-      options.push(<option key={i}value={i}>{i}</option>)      
+  const handlerClear = () =>{
+    setData({
+      name: '',
+      image:'',
+      height: '',
+      weight: '',
+      life_span: '',
+      temperaments:[]
+    })
   }
-  // ******************************************************************************************************
+  
+  
   return (
     <>
     <div className={styles.container}>
@@ -123,6 +138,7 @@ const Form = () => {
             className={errors.name && styles.error} 
             type="text" 
             name='name' 
+            value={data.name}
             placeholder='insert name new race'
             onChange={handlerInputChange}/>          
           {/* *****************INPUT IMAGE********************* */}
@@ -131,7 +147,8 @@ const Form = () => {
             className={errors.image && styles.error} 
             type="text" 
             name='image' 
-            placeholder='Insert "url" of image'
+            value={data.image}
+            placeholder='insert image "url"'
             onChange={handlerInputChange}/>          
          {/* *******************SELECT HEIGHT******************* */}
           <h4>Height</h4>
@@ -139,6 +156,7 @@ const Form = () => {
           <select 
             className={errors.height? styles.errorMaxMin : styles.max_min} 
             name="height"
+            value={data.height}
             onChange={handlerSelectChangeMin}>
             <option value="">Select</option>
             {options}
@@ -147,6 +165,7 @@ const Form = () => {
           <select 
             className={errors.height? styles.errorMaxMin : styles.max_min} 
             name="height"
+            value={data.height}
             onChange={handlerSelectChangeMax}>
           <option value="">Select</option>
             {options}
@@ -157,6 +176,7 @@ const Form = () => {
           <select 
             className={errors.weight? styles.errorMaxMin : styles.max_min} 
             name="weight"
+            value={data.weight}
             onChange={handlerSelectChangeMin}>
           <option value="">Select</option>
             {options}
@@ -165,6 +185,7 @@ const Form = () => {
           <select 
             className={errors.weight? styles.errorMaxMin : styles.max_min} 
             name="weight"
+            value={data.weight}
             onChange={handlerSelectChangeMax}>
           <option value="">Select</option>
             {options}
@@ -175,6 +196,7 @@ const Form = () => {
           <select 
             className={errors.life_span? styles.errorMaxMin : styles.max_min}
             name="life_span"
+            value={data.life_span}
             onChange={handlerSelectChangeMin}>
           <option value="">Select</option>
             {options}
@@ -183,6 +205,7 @@ const Form = () => {
           <select 
             className={errors.life_span? styles.errorMaxMin : styles.max_min} 
             name="life_span"
+            value={data.life_span}
             onChange={handlerSelectChangeMax}>
           <option value="">Select</option>
             {options}
