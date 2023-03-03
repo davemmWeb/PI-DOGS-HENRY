@@ -4,6 +4,7 @@ const {
   getForId,
   createDog,
   getForName,
+  deleteDog,
 } = require("../controllers/controlDogs");
 
 const router = Router();
@@ -44,18 +45,36 @@ router.get("/:idRace", async (req, res) => {
 // 📍 POST | /dogs
 router.post("/", async (req, res) => {
   const { name, image, height, weight, life_span, temperaments } = req.body;
-  if (![name, image, height, weight, life_span, temperaments].every(Boolean)) {
-    res.status(400).send("Error entering data");
+  if (
+    ![name, image, height, weight, life_span, temperaments.length].every(
+      Boolean
+    )
+  ) {
+    res.status(400).send("incomplete data");
   } else {
-    const newDog = await createDog(
-      image,
-      name,
-      height,
-      weight,
-      life_span,
-      temperaments
-    );
-    res.status(200).json(newDog);
+    try {
+      const newDog = await createDog(
+        image,
+        name,
+        height,
+        weight,
+        life_span,
+        temperaments
+      );
+      res.status(200).json(newDog);
+    } catch (err) {
+      res.status(400).send(err.message);
+    }
+  }
+});
+// 📍 DELETE | /dogs
+router.delete("/", async (req, res) => {
+  const { name } = req.query;
+  try {
+    const dogDelete = await deleteDog(name);
+    res.status(200).send(dogDelete);
+  } catch (err) {
+    res.status(400).send(err.message);
   }
 });
 

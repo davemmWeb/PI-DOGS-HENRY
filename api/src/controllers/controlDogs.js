@@ -89,4 +89,18 @@ const createDog = async (
   });
   return endDog;
 };
-module.exports = { getDogs, getForId, createDog, getForName };
+
+const deleteDog = async (name) => {
+  try {
+    await Dog.destroy({
+      where: {
+        name: name,
+      },
+    });
+    return "Ok delete";
+  } catch (err) {
+    return err.message;
+  }
+};
+
+module.exports = { getDogs, getForId, createDog, getForName, deleteDog };
